@@ -1,0 +1,19 @@
+{
+  "name": "diseases-stats-api",
+  "version": "0.0.1",
+  "description": "GraphQL Api for Disease Stats from the WHO",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "disease",
+    "country",
+    "WHO"
+  ],
+  "author": "topeomot@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  }
+}
