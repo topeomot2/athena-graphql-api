@@ -7,8 +7,10 @@
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
     "sourceMap": true,   
     "skipLibCheck": true,
+    "baseUrl": ".",
   },
   "include": [
     "src/**/*"
