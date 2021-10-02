@@ -2,8 +2,10 @@
   "name": "diseases-stats-api",
   "version": "0.0.1",
   "description": "GraphQL Api for Disease Stats from the WHO",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
+    "dev": "ts-node ./src/server.ts",
+    "dev:watch": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -14,6 +16,9 @@
   "author": "topeomot@gmail.com",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^16.10.2",
+    "nodemon": "^2.0.13",
+    "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   }
 }
