@@ -17,6 +17,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.graphql$': 'graphql-import-node/jest',
   },
   testMatch: [
     '**/tests/**/*.spec.(ts|js)',
