@@ -1,16 +1,14 @@
 import axios from 'axios';
-import IHealthDataService, { IDimension, IResponse } from 'src/models/IHealthDataInterface';
+import IHealthDataService, { IDimension, IResponse } from 'src/models/interfaces/IHealthDataService';
 import { URL } from 'url';
 
-const baseUrl = process.env.ATHENA_API || 'http://apps.who.int/gho/athena/api/';
-
-export default class Athena implements IHealthDataService{
+export default class Athena implements IHealthDataService {
   baseUrl: string = process.env.ATHENA_API || 'http://apps.who.int/gho/athena/api/';
 
-  constructor(){}
-  
+  constructor() {}
+
   getData(path: string): Promise<IDimension[]> {
-    const url = new URL(path, baseUrl);
+    const url = new URL(path, this.baseUrl);
 
     return new Promise((resolve, reject) => {
       axios({
@@ -24,5 +22,5 @@ export default class Athena implements IHealthDataService{
           reject(err);
         });
     });
-  },
-};
+  }
+}

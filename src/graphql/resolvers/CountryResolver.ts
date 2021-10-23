@@ -1,23 +1,19 @@
 import { IResolvers } from 'graphql-tools';
+import Health from '../../models/Health';
+import IHealth from '../../models/interfaces/IHealth';
+import IHealthDataService from '../../models/interfaces/IHealthDataService';
+import Athena from '../../services/Athena';
 import { QueryCountriesArgs, Country } from '../generated/graphql';
+
+const dataService: IHealthDataService = new Athena();
+const health: IHealth = new Health(dataService);
 
 export const CountryResolvers: IResolvers = {
   Query: {
     // eslint-disable-next-line no-unused-vars
     async countries(_: void, args: QueryCountriesArgs): Promise<[Country]> {
-      return [
-        {
-          label: 'ALB',
-          display: 'Albania',
-          display_sequence: 2,
-          attr: [
-            {
-              category: 'WORLD_BANK_INCOME_GROUP_GNI_REFERENCE_YEAR',
-              value: '2017',
-            },
-          ],
-        },
-      ];
+      const response = await health.getCountries();
+      return response as [Country];
     },
   },
 };
