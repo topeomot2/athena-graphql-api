@@ -25,7 +25,9 @@ async function startApolloServer(typeDefs: DocumentNode, resolvers: IResolvers) 
   });
   await server.start();
   server.applyMiddleware({ app, path: '/graphql' });
-  httpServer.listen({ port: 3000 });
+
+  const PORT = process.env.PORT || 3000;
+  httpServer.listen({ port: PORT });
   httpServer.on('error', (error) => {
     logger.error(error);
   });
