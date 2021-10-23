@@ -68,11 +68,18 @@ export type Indicator = Code & {
 export type Query = {
   __typename?: 'Query';
   countries?: Maybe<Array<Country>>;
+  indicatorCategories?: Maybe<Array<Category>>;
   indicators?: Maybe<Array<Indicator>>;
 };
 
 
 export type QueryCountriesArgs = {
+  first?: Maybe<Scalars['Int']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryIndicatorCategoriesArgs = {
   first?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
 };
@@ -233,6 +240,7 @@ export type IndicatorResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   countries?: Resolver<Maybe<Array<ResolversTypes['Country']>>, ParentType, ContextType, RequireFields<QueryCountriesArgs, 'first' | 'skip'>>;
+  indicatorCategories?: Resolver<Maybe<Array<ResolversTypes['Category']>>, ParentType, ContextType, RequireFields<QueryIndicatorCategoriesArgs, 'first' | 'skip'>>;
   indicators?: Resolver<Maybe<Array<ResolversTypes['Indicator']>>, ParentType, ContextType, RequireFields<QueryIndicatorsArgs, 'first' | 'skip'>>;
 };
 

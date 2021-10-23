@@ -1,4 +1,4 @@
-import { Code, Country, Indicator } from 'src/graphql/generated/graphql';
+import { Category, Code, Country, Indicator } from 'src/graphql/generated/graphql';
 import IHealth from './interfaces/IHealth';
 import IHealthDataService from './interfaces/IHealthDataService';
 
@@ -46,5 +46,22 @@ export default class Health implements IHealth {
     });
 
     return indicators;
+  }
+
+  async getIndicatorCategories(first: number, skip: number): Promise<Category[]> {
+    const dimensions = await this.dataService.getData('GHOCAT');
+    const categories: Category[] = [];
+
+    dimensions[0].code.slice(skip, first + skip).forEach((item) => {
+      categories.push({
+        label: item.label,
+        display: item.display,
+        display_sequence: item.display_sequence,
+        url: item.url,
+        attr: item.attr,
+      });
+    });
+
+    return categories;
   }
 }
