@@ -12,7 +12,7 @@ export const CountryResolvers: IResolvers = {
   Query: {
     // eslint-disable-next-line no-unused-vars
     async countries(_: void, args: QueryCountriesArgs): Promise<[Country]> {
-      const response = await health.getCountries();
+      const response = await health.getCountries(args.first as number, args.skip as number);
       return response as [Country];
     },
   },

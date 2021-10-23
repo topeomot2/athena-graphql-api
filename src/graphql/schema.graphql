@@ -1,5 +1,6 @@
 type Query {
-    countries(first: Int = 10, skip: Int = 0): [Country!]
+    countries(first: Int = 195, skip: Int = 0): [Country!]
+    indicators(first: Int = 10, skip: Int = 0): [Indicator!]
 }
 
 
