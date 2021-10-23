@@ -6,5 +6,5 @@ export default interface IHealth {
   dataService: IHealthDataService;
   getCodes(): Code[];
   getCountries(first: number, skip: number): Promise<Country[]>;
-  getIndicators(): Promise<Indicator[]>;
+  getIndicators(first: number, skip: number): Promise<Indicator[]>;
 }

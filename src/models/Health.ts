@@ -31,7 +31,20 @@ export default class Health implements IHealth {
     throw new Error('Method not implemented.');
   }
 
-  getIndicators(): Promise<Indicator[]> {
-    throw new Error('Method not implemented.');
+  async getIndicators(first: number, skip: number): Promise<Indicator[]> {
+    const dimensions = await this.dataService.getData('GHO');
+    const indicators: Indicator[] = [];
+
+    dimensions[0].code.slice(skip, first + skip).forEach((item) => {
+      indicators.push({
+        label: item.label,
+        display: item.display,
+        display_sequence: item.display_sequence,
+        url: item.url,
+        attr: item.attr,
+      });
+    });
+
+    return indicators;
   }
 }
