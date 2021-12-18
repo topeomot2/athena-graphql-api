@@ -2,6 +2,7 @@ type Query {
     countries(first: Int = 195, skip: Int = 0): [Country!]
     indicators(first: Int = 10, skip: Int = 0): [Indicator!]
     indicatorCategories(first: Int = 10, skip: Int = 0): [Category!]
+    stats(country: String, indicator: String, first: Int = 10, skip: Int = 0): [Dimension!]
 }
 
 
@@ -14,11 +15,6 @@ interface Code {
     dimension: String
 }
 
-type Dimension {
-    label: String
-    display: String
-    isMeasure: Boolean
-}
 
 type Attribute  {
     category: String
@@ -52,4 +48,21 @@ type Indicator implements Code {
     url: String
     attr: [Attribute]!
     dimension: String
+}
+
+
+type Stat implements Code {
+    label: String!
+    display: String!
+    display_sequence: Int!
+    url: String
+    attr: [Attribute]!
+    dimension: String
+}
+
+type Dimension {
+    label: String
+    display: String
+    isMeasure: Boolean
+    code: [Stat]!
 }

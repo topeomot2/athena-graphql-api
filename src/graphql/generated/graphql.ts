@@ -50,6 +50,7 @@ export type Country = Code & {
 
 export type Dimension = {
   __typename?: 'Dimension';
+  code: Array<Maybe<Stat>>;
   display?: Maybe<Scalars['String']>;
   isMeasure?: Maybe<Scalars['Boolean']>;
   label?: Maybe<Scalars['String']>;
@@ -70,6 +71,7 @@ export type Query = {
   countries?: Maybe<Array<Country>>;
   indicatorCategories?: Maybe<Array<Category>>;
   indicators?: Maybe<Array<Indicator>>;
+  stats?: Maybe<Array<Dimension>>;
 };
 
 
@@ -88,6 +90,24 @@ export type QueryIndicatorCategoriesArgs = {
 export type QueryIndicatorsArgs = {
   first?: Maybe<Scalars['Int']>;
   skip?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryStatsArgs = {
+  country?: Maybe<Scalars['String']>;
+  first?: Maybe<Scalars['Int']>;
+  indicator?: Maybe<Scalars['String']>;
+  skip?: Maybe<Scalars['Int']>;
+};
+
+export type Stat = Code & {
+  __typename?: 'Stat';
+  attr: Array<Maybe<Attribute>>;
+  dimension?: Maybe<Scalars['String']>;
+  display: Scalars['String'];
+  display_sequence: Scalars['Int'];
+  label: Scalars['String'];
+  url?: Maybe<Scalars['String']>;
 };
 
 
@@ -162,12 +182,13 @@ export type ResolversTypes = {
   Attribute: ResolverTypeWrapper<Attribute>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Category: ResolverTypeWrapper<Category>;
-  Code: ResolversTypes['Category'] | ResolversTypes['Country'] | ResolversTypes['Indicator'];
+  Code: ResolversTypes['Category'] | ResolversTypes['Country'] | ResolversTypes['Indicator'] | ResolversTypes['Stat'];
   Country: ResolverTypeWrapper<Country>;
   Dimension: ResolverTypeWrapper<Dimension>;
   Indicator: ResolverTypeWrapper<Indicator>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Query: ResolverTypeWrapper<{}>;
+  Stat: ResolverTypeWrapper<Stat>;
   String: ResolverTypeWrapper<Scalars['String']>;
 };
 
@@ -176,12 +197,13 @@ export type ResolversParentTypes = {
   Attribute: Attribute;
   Boolean: Scalars['Boolean'];
   Category: Category;
-  Code: ResolversParentTypes['Category'] | ResolversParentTypes['Country'] | ResolversParentTypes['Indicator'];
+  Code: ResolversParentTypes['Category'] | ResolversParentTypes['Country'] | ResolversParentTypes['Indicator'] | ResolversParentTypes['Stat'];
   Country: Country;
   Dimension: Dimension;
   Indicator: Indicator;
   Int: Scalars['Int'];
   Query: {};
+  Stat: Stat;
   String: Scalars['String'];
 };
 
@@ -202,7 +224,7 @@ export type CategoryResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type CodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Code'] = ResolversParentTypes['Code']> = {
-  __resolveType: TypeResolveFn<'Category' | 'Country' | 'Indicator', ParentType, ContextType>;
+  __resolveType: TypeResolveFn<'Category' | 'Country' | 'Indicator' | 'Stat', ParentType, ContextType>;
   attr?: Resolver<Array<Maybe<ResolversTypes['Attribute']>>, ParentType, ContextType>;
   dimension?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   display?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -222,6 +244,7 @@ export type CountryResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type DimensionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Dimension'] = ResolversParentTypes['Dimension']> = {
+  code?: Resolver<Array<Maybe<ResolversTypes['Stat']>>, ParentType, ContextType>;
   display?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   isMeasure?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   label?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -242,6 +265,17 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   countries?: Resolver<Maybe<Array<ResolversTypes['Country']>>, ParentType, ContextType, RequireFields<QueryCountriesArgs, 'first' | 'skip'>>;
   indicatorCategories?: Resolver<Maybe<Array<ResolversTypes['Category']>>, ParentType, ContextType, RequireFields<QueryIndicatorCategoriesArgs, 'first' | 'skip'>>;
   indicators?: Resolver<Maybe<Array<ResolversTypes['Indicator']>>, ParentType, ContextType, RequireFields<QueryIndicatorsArgs, 'first' | 'skip'>>;
+  stats?: Resolver<Maybe<Array<ResolversTypes['Dimension']>>, ParentType, ContextType, RequireFields<QueryStatsArgs, 'first' | 'skip'>>;
+};
+
+export type StatResolvers<ContextType = any, ParentType extends ResolversParentTypes['Stat'] = ResolversParentTypes['Stat']> = {
+  attr?: Resolver<Array<Maybe<ResolversTypes['Attribute']>>, ParentType, ContextType>;
+  dimension?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  display?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  display_sequence?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  label?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
@@ -252,5 +286,6 @@ export type Resolvers<ContextType = any> = {
   Dimension?: DimensionResolvers<ContextType>;
   Indicator?: IndicatorResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Stat?: StatResolvers<ContextType>;
 };
 

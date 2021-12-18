@@ -13,7 +13,7 @@ export default class Athena implements IHealthDataService {
     return new Promise((resolve, reject) => {
       axios({
         method: 'get',
-        url: url.searchParams.keys.length === 0 ? `${url.href}?format=json` : `${url.href}&format=json`,
+        url: url.search.length === 0 ? `${url.href}?format=json` : `${url.href}&format=json`,
       })
         .then((res) => {
           resolve((res.data as IResponse).dimension);

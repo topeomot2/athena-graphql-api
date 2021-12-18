@@ -5,9 +5,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { DocumentNode } from 'apollo-link';
 import { IResolvers } from 'graphql-tools';
-import * as bunyan from 'bunyan';
-
-const logger = bunyan.createLogger({ name: 'test' });
+import logger from './services/Logger';
 
 async function startApolloServer(typeDefs: DocumentNode, resolvers: IResolvers) {
   // setup express app

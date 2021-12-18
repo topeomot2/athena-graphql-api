@@ -1,4 +1,5 @@
 import { IResolvers } from 'graphql-tools';
+import cache from '../../services/RedisCache';
 import Health from '../../models/Health';
 import IHealth from '../../models/interfaces/IHealth';
 import IHealthDataService from '../../models/interfaces/IHealthDataService';
@@ -6,7 +7,10 @@ import Athena from '../../services/Athena';
 import { QueryCountriesArgs, Country } from '../generated/graphql';
 
 const dataService: IHealthDataService = new Athena();
-const health: IHealth = new Health(dataService);
+let health: IHealth;
+cache.then((cacheService) => {
+  health = new Health(dataService, cacheService);
+});
 
 export const CountryResolvers: IResolvers = {
   Query: {

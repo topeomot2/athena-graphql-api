@@ -4,9 +4,13 @@ import IHealth from '../../models/interfaces/IHealth';
 import IHealthDataService from '../../models/interfaces/IHealthDataService';
 import Athena from '../../services/Athena';
 import { Category, Indicator, QueryIndicatorCategoriesArgs, QueryIndicatorsArgs } from '../generated/graphql';
+import cache from '../../services/RedisCache';
 
 const dataService: IHealthDataService = new Athena();
-const health: IHealth = new Health(dataService);
+let health: IHealth;
+cache.then((cacheService) => {
+  health = new Health(dataService, cacheService);
+});
 
 export const IndicatorResolvers: IResolvers = {
   Query: {
