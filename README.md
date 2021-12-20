@@ -1,0 +1,1 @@
+A project that builds a graphql api on top of a REST api.
